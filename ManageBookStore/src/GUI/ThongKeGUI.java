@@ -418,7 +418,8 @@ public class ThongKeGUI extends javax.swing.JPanel {
         
         DefaultTableModel model = new DefaultTableModel(header, 0);
         try{
-            ThongKeSPBUS bus = new ThongKeSPBUS();
+            String year = comboNamThongKe.getSelectedItem().toString();
+            ThongKeSPBUS bus = new ThongKeSPBUS(year);
             for(ThongKeSPDTO thongke : bus.dsThongKe){
                 Vector row = new Vector();
                 row.add(thongke.getMaSach());

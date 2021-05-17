@@ -15,9 +15,9 @@ import java.util.ArrayList;
  */
 public class ThongKeSPDAO {
     TungSqlConnect conn = new TungSqlConnect("localhost", "root", "", "bookstore");
-    
-    public ThongKeSPDAO(){
-        
+    String year;
+    public ThongKeSPDAO(String year){
+        this.year = year;
     }
     
     public ArrayList<ThongKeSPDTO> xuatThongKe() throws Exception{
@@ -25,8 +25,9 @@ public class ThongKeSPDAO {
         String sql = "select MaSach, sum( if(Quarter(hoadon.NgayLapHD) = 1, chitiethoadon.ThanhTien, 0)) as QUY1, "
                 + "sum( if(Quarter(hoadon.NgayLapHD) = 2, chitiethoadon.ThanhTien, 0)) as QUY2, "
                 + "sum( if(Quarter(hoadon.NgayLapHD) = 3, chitiethoadon.ThanhTien, 0)) as QUY3, "
-                + "sum( if(Quarter(hoadon.NgayLapHD) = 4, chitiethoadon.ThanhTien, 0)) as QUY4\n "
-                + "from hoadon, chitiethoadon where hoadon.MaHD = chitiethoadon.MaHD group by MaSach" ;
+                + "sum( if(Quarter(hoadon.NgayLapHD) = 4, chitiethoadon.ThanhTien, 0)) as QUY4\n"
+                + "from hoadon, chitiethoadon where hoadon.MaHD = chitiethoadon.MaHD and year(NgayLapHD) = " + year 
+                +"\ngroup by MaSach" ;
         System.out.println(sql);
         ResultSet rs = conn.executeQuery(sql);
         

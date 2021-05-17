@@ -16,8 +16,8 @@ import java.util.ArrayList;
 public class ThongKeSPBUS {
     public ArrayList<ThongKeSPDTO> dsThongKe;
     
-    public ThongKeSPBUS() throws Exception{ 
-        ThongKeSPDAO dao = new ThongKeSPDAO();
+    public ThongKeSPBUS(String year) throws Exception{ 
+        ThongKeSPDAO dao = new ThongKeSPDAO(year);
         dsThongKe = dao.xuatThongKe();
     }
 }
