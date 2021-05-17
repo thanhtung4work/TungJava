@@ -175,6 +175,11 @@ public class DangNhapGUI extends javax.swing.JFrame {
             return;
         }
         
+        if(bus.isLocked(username, password)){
+            JOptionPane.showMessageDialog(null, "Tài khoản hiện tại bị khóa");
+            return;
+        }
+        bus.taikhoan = null;
         this.dispose();
         qlns = new QLNhaSach();
         qlns.setVisible(true);

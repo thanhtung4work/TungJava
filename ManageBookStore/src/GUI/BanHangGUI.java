@@ -625,7 +625,11 @@ public class BanHangGUI extends javax.swing.JPanel {
         
         KhachHangBUS khBUS=new KhachHangBUS();
         ArrayList<KhachHangDTO> khDTO=new ArrayList<>();
+        try{
         if(khBUS.dskh==null) khBUS.docDSKH();
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Không thể đọc dữ liệu khách hàng !!");
+        }
         khDTO=khBUS.dskh;
          if(txMaKH.getText().isEmpty()){
              JOptionPane.showMessageDialog(null, "Chưa nhập mã khách hàng !!");

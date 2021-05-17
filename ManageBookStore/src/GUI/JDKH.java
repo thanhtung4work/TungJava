@@ -9,6 +9,7 @@ import BUS.KhachHangBUS;
 import DTO.KhachHangDTO;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -269,6 +270,7 @@ public class JDKH extends javax.swing.JDialog {
         tbKH.setModel(model);
     }
     public void LoadDSKH(){
+        try{
         KhachHangBUS khBUS=new KhachHangBUS();
         Vector header=new Vector();
         header.add("Mã KH");
@@ -282,6 +284,11 @@ public class JDKH extends javax.swing.JDialog {
         ArrayList<KhachHangDTO> dskh=new ArrayList<>();
         dskh=khBUS.dskh;
         outModel(model,dskh);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Không thể đọc dữ liệu");
+            System.out.println(e);
+        }
     }
 /************************lấy mã kh*****************************************/
     public String maKH(){

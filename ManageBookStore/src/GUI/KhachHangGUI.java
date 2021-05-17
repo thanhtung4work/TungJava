@@ -492,6 +492,7 @@ public class KhachHangGUI extends javax.swing.JPanel {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
+        try{
         String id = textMa.getText();
         String ho = textHo.getText();
         String ten = textTen.getText();
@@ -512,10 +513,15 @@ public class KhachHangGUI extends javax.swing.JPanel {
         bus.xoa(kh);
         docDSKH();
         textAmount.setText(String.valueOf(model.getRowCount()));
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Không thể xóa dữ liệu\n Có thể khách hàng này đang trong một hóa đơn");
+            System.out.println(e);
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
+        try{
         int index = table.getSelectedRow();
         String id = textMa.getText();
         String ho = textHo.getText();
@@ -536,6 +542,9 @@ public class KhachHangGUI extends javax.swing.JPanel {
         
         bus.sua(kh);
         docDSKH();
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Không thể thay đổi dữ liệu");
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void dropdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropdownActionPerformed
@@ -664,6 +673,7 @@ public class KhachHangGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDocXLSActionPerformed
 
     private void docDSKH(){
+        try{
         if(bus.dskh == null) bus.docDSKH();
         Vector<String> header = new Vector();
         //model HEADER
@@ -672,6 +682,7 @@ public class KhachHangGUI extends javax.swing.JPanel {
         model = new DefaultTableModel(header, 0);
         
         for(KhachHangDTO kh : bus.dskh){
+            if(kh.isTrangthai() == false) continue;
             Vector row = new Vector();
             row.add(kh.getId());
             row.add(kh.getHo());
@@ -685,6 +696,9 @@ public class KhachHangGUI extends javax.swing.JPanel {
         }
         
         table.setModel(model);
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Không thể đọc dữ liệu");
+        }
     }
 
     private DefaultTableModel ketQuaTimKiem(ArrayList<KhachHangDTO> rs){

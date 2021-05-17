@@ -36,6 +36,17 @@ public class DangNhapBUS {
                 taiKhoanDaDangNhap = tk;
             }
         }
+        
+        return flag;
+    }
+    
+    public boolean isLocked(String username, String password){
+        boolean flag = false;
+        for(TaiKhoanDTO tk : taikhoan){
+            if( (tk.getTenTK().equals( username ) && tk.getMk().equals( password )) && !tk.isStatus()){
+                flag = true;
+            }
+        }
         return flag;
     }
 }

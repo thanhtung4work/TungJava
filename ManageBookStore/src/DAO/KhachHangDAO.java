@@ -25,9 +25,8 @@ public class KhachHangDAO {
         }
     }
     
-    public ArrayList docDSKH(){
+    public ArrayList docDSKH() throws Exception{
         ArrayList<KhachHangDTO> dskh = new ArrayList<>();
-        try {
             String query = "select * from khachhang";
             ResultSet rs = conn.excuteQuery(query);
             
@@ -42,44 +41,28 @@ public class KhachHangDAO {
                 kh.setPhai(rs.getBoolean(i++));
                 kh.setTct(rs.getInt(i++));
                 kh.setNgaySinh(rs.getString(i++));
+                kh.setTrangthai(rs.getBoolean("TrangThai"));
                 dskh.add(kh);
             }
             
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Không thể đọc dữ liệu từ database");
-        }
-        
         return dskh;
     }
     
-    public void them(KhachHangDTO kh){
-        String query = String.format("insert into khachhang values('%s', '%s', '%s', '%s', '%s', %b, %d, '%s')", 
+    public void them(KhachHangDTO kh) throws Exception{
+        String query = String.format("insert into khachhang values('%s', '%s', '%s', '%s', '%s', %b, %d, '%s', 1)", 
                 kh.getId(), kh.getHo(), kh.getTen(), kh.getSdt(), kh.getEmail(), kh.isPhai(), kh.getTct(), kh.getNgaySinh());
-        try{
             conn.excuteUpdate(query);
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Không thể thêm dữ liệu");
-        }
     }
     
-    public void xoa(KhachHangDTO kh){
-        String query = String.format("delete from khachhang where MaKH = '%s'", kh.getId());
-        
-        try {
+    public void xoa(KhachHangDTO kh) throws Exception{
+        String query = String.format("update khachhang set TrangThai = 0 where MaKH = '%s'", kh.getId());
             conn.excuteUpdate(query);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Không thể xóa dữ liệu");
-        }
     }
     
-    public void sua(KhachHangDTO kh){
+    public void sua(KhachHangDTO kh) throws Exception{
         String query = String.format("update khachhang set Ho='%s', Ten='%s', SDT='%s', Email='%s', Phai=%b, TCT=%d where MaKH = '%s'", 
                 kh.getHo(), kh.getTen(), kh.getSdt(), kh.getEmail(), kh.isPhai(), kh.getTct(), kh.getId());
-        try{
             conn.excuteUpdate(query);
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Không thể sửa dữ liệu");
-        }
     }
     
 }

@@ -70,7 +70,8 @@ public class KhachHangDTO {
     private boolean phai;
     private int tct;
     private ngaysinh ns;
-
+    private boolean trangthai;
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -124,6 +125,7 @@ public class KhachHangDTO {
         this.email = email;
         this.phai = phai;
         this.tct = tct;
+        this.trangthai = true;
     }
 
     public String getId() {
@@ -148,6 +150,14 @@ public class KhachHangDTO {
 
     public void setTen(String ten) {
         this.ten = ten;
+    }
+
+    public boolean isTrangthai() {
+        return trangthai;
+    }
+
+    public void setTrangthai(boolean trangthai) {
+        this.trangthai = trangthai;
     }
 
     public String getSdt() {

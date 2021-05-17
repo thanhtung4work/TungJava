@@ -18,13 +18,13 @@ public class KhachHangBUS {
     public static ArrayList<KhachHangDTO> dskh;
     public KhachHangBUS(){}
     
-    public void docDSKH(){
+    public void docDSKH() throws Exception{
         KhachHangDAO data = new KhachHangDAO();
         if(dskh == null) dskh = new ArrayList<>();
         dskh = data.docDSKH();
     }
     
-    public void them(KhachHangDTO kh){
+    public void them(KhachHangDTO kh) throws Exception{
         boolean isOk = true;
         for(KhachHangDTO KH : dskh){
             if(KH.getId().equals(kh.getId())){
@@ -40,7 +40,7 @@ public class KhachHangBUS {
         }
     }
     
-    public void xoa(KhachHangDTO kh){
+    public void xoa(KhachHangDTO kh) throws Exception{
         KhachHangDAO data = new KhachHangDAO();
         data.xoa(kh);
         for(KhachHangDTO KH : dskh){
@@ -51,7 +51,7 @@ public class KhachHangBUS {
         }
     }
     
-    public void sua(KhachHangDTO kh){
+    public void sua(KhachHangDTO kh) throws Exception{
         KhachHangDAO data = new KhachHangDAO();
         data.sua(kh);
         dskh = data.docDSKH();
@@ -83,7 +83,6 @@ public class KhachHangBUS {
         for(KhachHangDTO kh : dskh){
             if(kh.getTen().equals(id)){
                 result.add(kh);
-                break;
             }
         }
         return result;
