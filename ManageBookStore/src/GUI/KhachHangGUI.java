@@ -624,9 +624,7 @@ public class KhachHangGUI extends javax.swing.JPanel {
             String path = "";
             if(rVal == JFileChooser.APPROVE_OPTION){
                 path = chooser.getCurrentDirectory().toString() + "\\" + chooser.getSelectedFile().getName();
-            }
-            
-            FileInputStream fis=new FileInputStream(new File( path ));  
+                FileInputStream fis=new FileInputStream(new File( path ));  
             //creating workbook instance that refers to .xls file  
             Workbook wb=new HSSFWorkbook(fis);   
             //creating a Sheet object to retrieve the object  
@@ -655,7 +653,10 @@ public class KhachHangGUI extends javax.swing.JPanel {
                 khachhang.setNgaySinh(row.getCell(i++).getStringCellValue());
                 System.out.print(i + " ");
                 bus.them(khachhang);
-            }  
+            }
+            }
+            
+              
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Lỗi nhập excel!");
             System.out.println(ex);
