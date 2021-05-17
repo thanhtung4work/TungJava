@@ -15,7 +15,18 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.text.*;
 import java.awt.print.*;
+import java.io.File;
+import java.io.FileInputStream;
+import javax.swing.JFileChooser;
 import javax.swing.JTable;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 /**
  *
  * @author tungk
@@ -82,6 +93,7 @@ public class KhachHangGUI extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         textAmount = new javax.swing.JTextField();
         btnReport = new javax.swing.JButton();
+        btnDocXLS = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -298,7 +310,7 @@ public class KhachHangGUI extends javax.swing.JPanel {
                         .addComponent(btnDong)
                         .addGap(18, 18, 18)
                         .addComponent(btnRefresh)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -362,6 +374,13 @@ public class KhachHangGUI extends javax.swing.JPanel {
             }
         });
 
+        btnDocXLS.setText("Đọc xls");
+        btnDocXLS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDocXLSActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -381,7 +400,9 @@ public class KhachHangGUI extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 808, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnReport)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnDocXLS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -402,6 +423,8 @@ public class KhachHangGUI extends javax.swing.JPanel {
                         .addComponent(controls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDocXLS, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -592,6 +615,53 @@ public class KhachHangGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnReportActionPerformed
 
+    private void btnDocXLSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDocXLSActionPerformed
+        // TODO add your handling code here:
+        //obtaining input bytes from a file
+        try{
+            JFileChooser chooser = new JFileChooser();
+            int rVal = chooser.showOpenDialog(null);
+            String path = "";
+            if(rVal == JFileChooser.APPROVE_OPTION){
+                path = chooser.getCurrentDirectory().toString() + "\\" + chooser.getSelectedFile().getName();
+            }
+            
+            FileInputStream fis=new FileInputStream(new File( path ));  
+            //creating workbook instance that refers to .xls file  
+            Workbook wb=new HSSFWorkbook(fis);   
+            //creating a Sheet object to retrieve the object  
+            Sheet sheet=wb.getSheetAt(0);  
+            //evaluating cell type   
+            FormulaEvaluator formulaEvaluator=wb.getCreationHelper().createFormulaEvaluator();  
+            KhachHangBUS bus = new KhachHangBUS();
+            for(Row row: sheet)     //iteration over row using for each loop  
+            {  
+                KhachHangDTO khachhang = new KhachHangDTO();
+                int i = 0;
+                khachhang.setId(row.getCell(i++).getStringCellValue());
+                System.out.print(i + " ");
+                khachhang.setHo(row.getCell(i++).getStringCellValue());
+                System.out.print(i + " ");
+                khachhang.setTen(row.getCell(i++).getStringCellValue());
+                System.out.print(i + " ");
+                khachhang.setSdt(row.getCell(i++).getStringCellValue());
+                System.out.print(i + " ");
+                khachhang.setEmail(row.getCell(i++).getStringCellValue());
+                System.out.print(i + " ");
+                khachhang.setPhai(row.getCell(i++).getStringCellValue()=="Nữ"?false:true);
+                System.out.print(i + " ");
+                khachhang.setTct( (int)row.getCell(i++).getNumericCellValue() );
+                System.out.print(i + " ");
+                khachhang.setNgaySinh(row.getCell(i++).getStringCellValue());
+                System.out.print(i + " ");
+                bus.them(khachhang);
+            }  
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Lỗi nhập excel!");
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_btnDocXLSActionPerformed
+
     private void docDSKH(){
         if(bus.dskh == null) bus.docDSKH();
         Vector<String> header = new Vector();
@@ -639,6 +709,7 @@ public class KhachHangGUI extends javax.swing.JPanel {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDocXLS;
     private javax.swing.JButton btnDong;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnReport;
