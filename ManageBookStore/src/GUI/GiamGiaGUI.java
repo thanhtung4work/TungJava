@@ -10,7 +10,6 @@ import BUS.ChuongTrinhGiamGiaBUS;
 import DTO.ChiTietChuongTrinhGiamGiaDTO;
 import DTO.ChuongTrinhGiamGiaDTO;
 import DTO.SachDTO;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 import javax.swing.JFrame;
@@ -64,8 +63,6 @@ public class GiamGiaGUI extends javax.swing.JPanel {
         table.setModel(model);
     }
     
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -93,10 +90,10 @@ public class GiamGiaGUI extends javax.swing.JPanel {
         table = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        dateChoserTimBD = new com.toedter.calendar.JDateChooser();
+        jDateChooser3 = new com.toedter.calendar.JDateChooser();
         jLabel10 = new javax.swing.JLabel();
-        dateChoserTimKT = new com.toedter.calendar.JDateChooser();
-        btnSearch = new javax.swing.JButton();
+        jDateChooser4 = new com.toedter.calendar.JDateChooser();
+        jButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         btnSua = new javax.swing.JButton();
@@ -250,17 +247,17 @@ public class GiamGiaGUI extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("NGÀY BẮT ĐẦU:");
 
-        dateChoserTimBD.setDateFormatString("yyyy-MM-dd");
+        jDateChooser3.setDateFormatString("yyyy-MM-dd");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("NGÀY KẾT THÚC:");
 
-        dateChoserTimKT.setDateFormatString("yyyy-MM-dd");
+        jDateChooser4.setDateFormatString("yyyy-MM-dd");
 
-        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search_25px.png"))); // NOI18N
-        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search_25px.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -269,28 +266,29 @@ public class GiamGiaGUI extends javax.swing.JPanel {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(200, 200, 200)
+                .addContainerGap()
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dateChoserTimBD, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(185, 185, 185)
+                .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(84, 84, 84)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(dateChoserTimKT, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(142, 142, 142)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jDateChooser4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(431, 431, 431)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(1, 1, 1)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateChoserTimKT, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jButton1))
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateChoserTimBD, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch))
+                    .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDateChooser4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -479,8 +477,8 @@ public class GiamGiaGUI extends javax.swing.JPanel {
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
@@ -501,42 +499,17 @@ public class GiamGiaGUI extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnThemChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnXoaChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTatCaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTatCaActionPerformed
         // TODO add your handling code here:
-        docDSCT();
     }//GEN-LAST:event_btnTatCaActionPerformed
 
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        try{
-        Date batdau = dateChoserTimBD.getDate();
-        Date ketthuc = dateChoserTimKT.getDate();
-        ChuongTrinhGiamGiaBUS bus = new ChuongTrinhGiamGiaBUS();
-        
-        
-        Vector header = new Vector();
-        header.add("Mã"); header.add("Tên"); header.add("Loại"); header.add("Ngày BD"); header.add("Ngày KT");
-        model = new DefaultTableModel(header, 0);
-        ArrayList<ChuongTrinhGiamGiaDTO> dsTimKiem = bus.timkiem(batdau, ketthuc);
-        for(ChuongTrinhGiamGiaDTO cTrinh : dsTimKiem){
-            Vector row = new Vector();
-            row.add(cTrinh.getId());
-            row.add(cTrinh.getTenChuongTrinh());
-            row.add(cTrinh.getLoai());
-            row.add(cTrinh.sqlNgayBD());
-            row.add(cTrinh.sqlNgayKT());
-            model.addRow(row);
-        }
-        table.setModel(model);
-        
-        } catch(Exception ex){
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ dữ liệu");
-        }
-    }//GEN-LAST:event_btnSearchActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
@@ -693,7 +666,6 @@ public class GiamGiaGUI extends javax.swing.JPanel {
     private DefaultTableModel modelChiTiet;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btmTimSach;
-    private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTatCa;
     private javax.swing.JButton btnThem;
@@ -701,9 +673,10 @@ public class GiamGiaGUI extends javax.swing.JPanel {
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnXoaChiTiet;
     private com.toedter.calendar.JDateChooser dateBD;
-    private com.toedter.calendar.JDateChooser dateChoserTimBD;
-    private com.toedter.calendar.JDateChooser dateChoserTimKT;
     private com.toedter.calendar.JDateChooser dateKT;
+    private javax.swing.JButton jButton1;
+    private com.toedter.calendar.JDateChooser jDateChooser3;
+    private com.toedter.calendar.JDateChooser jDateChooser4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

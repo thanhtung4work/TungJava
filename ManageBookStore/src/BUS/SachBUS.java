@@ -76,7 +76,24 @@ public class SachBUS {
             }
         }
     }
-   public boolean CheckSL(String MaSP,int SoLuong){
+    public void deleteSachByMaSach(String MaSach) throws Exception{
+         for(int i = 0 ; i < listSach.size() ; i++)
+        {
+            if(listSach.get(i).getMaSach().equals(MaSach))
+            {
+                try {
+                SachDAO data =new SachDAO();
+                data.updateSachTrangThai(listSach.get(i));
+                } catch (Exception e) {
+                    System.out.println("Khong the Cap nhat Sach vao database !!!");
+                   
+                }
+                
+                return;
+            }
+        }
+    }
+    public boolean updateSL(String MaSP,int SoLuong){
         for(SachDTO sach : listSach)
          {
              if(sach.getMaSach().equals(MaSP))
@@ -104,6 +121,21 @@ public class SachBUS {
              }
          }
          return false;
+    }
+    public boolean CheckSL(String masp , int sl)
+    {
+        for(SachDTO sp : listSach)
+         {
+             if(sp.getMaSach().equals(masp))
+             {
+                if(sl > sp.getSoluong())
+                {
+                    JOptionPane.showMessageDialog(null, "Không đủ hàng");
+                    return false;
+                }
+             }
+         }
+         return true;
     }
    public SachDTO searchMaSach (String masach)
     {

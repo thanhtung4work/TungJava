@@ -62,7 +62,6 @@ public class ChuongTrinhGiamGiaBUS {
             i++;
         }
     }
-    
     public ArrayList<ChuongTrinhGiamGiaDTO> timkiem (Date ngayBD, Date ngayKT){
         ArrayList<ChuongTrinhGiamGiaDTO> dsTimThay = new ArrayList<>();
         

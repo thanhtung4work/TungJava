@@ -352,6 +352,12 @@ public class JDSP extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
+
+    public String getMaSach(){
+        String masach= txMaSach.getText(); 
+        return masach;
+    }
     private void tbSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbSPMouseClicked
        Click();
     }//GEN-LAST:event_tbSPMouseClicked
